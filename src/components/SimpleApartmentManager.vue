@@ -8,14 +8,14 @@
       <input type="text" name="lift" v-model="currentApartment.lift" />
       <input type="text" name="rentalgross" v-model="currentApartment.rentalgross" />
 
-      <button type="button" @click.prevent.stop="saveApartment">Save!</button>
+      <button class="saveButton" type="button" @click.prevent.stop="saveApartment">Save</button>
     </form>
     <button class="newApartment" @click.prevent.stop="newApartment()">New</button>
     <table>
       <thead>
         <tr>
-          <th> State </th>
-          <th> <span>Title</span> </th>
+          <th> Title </th>
+          <th> <span>State</span> </th>
           <th> <span>Area</span> </th>
           <th> <span>Rooms</span> </th>
           <th> <span>Lift</span> </th>
@@ -86,16 +86,45 @@ export default model;
 h3 {
   margin: 40px 0 0;
 }
+
 table {
   text-align: left;
+  border-collapse: collapse;
+  width: 100%;
 }
-span {
-  margin-left: 20px;
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
+
+button {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.newApartment, .saveButton {
+  background-color: #4CAF50;
+}
+
+.newApartment {
+  float: left;
+}
+
 .deleteButton {
+  background-color: #f44336;
   margin-left: 5px;
 }
+
 a {
   color: #42b983;
 }
+
 </style>

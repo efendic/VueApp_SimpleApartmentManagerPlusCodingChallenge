@@ -3,15 +3,18 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <div class="tabs">
       <div class="tab-navigation">
-        <button @click="changeTab(0)" :class="{ focused: selectedTab === 0 }">SimpleApartmentManager</button>
-        <button @click="changeTab(1)" :class="{ focused: selectedTab === 1 }">coding</button>
+        <button @click="changeTab(0)" :class="{ focused: selectedTab === 0 }">Simple Apartment Manager</button>
+        <button @click="changeTab(1)" :class="{ focused: selectedTab === 1 }" style="margin-left: 15px;">Coding Challenge</button>
       </div>
+      <br>
+      <br>
+      <br>
       <div v-if="selectedTab === 0">
         <SimpleApartmentManager />
       </div>
       <div v-if="selectedTab === 1">
         <textarea
-          @keyup="keyupFun()"
+          @keyup="findMostOccuring()"
           name="codingChallenge"
           id="cct"
           cols="30"
@@ -44,7 +47,7 @@ export default {
     changeTab: function(index) {
       this.selectedTab = index;
     },
-    keyupFun: function() {
+    findMostOccuring: function() {
       var exp = this.characters;
       var expCounts = {};
       var maxKey = "";
@@ -77,17 +80,25 @@ export default {
 }
 
 .tabs {
-  border: 1px solid gray;
-  padding: 10px;
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+
+.tab-navigation {
+  float: left;
 }
 
 .tab-navigation > button {
+  background-color: #e7e7e7;
+  border: none;
+  color: silver;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
   display: inline-block;
-  margin: 3px;
-  background-color: #fff;
-  outline: none;
-  border: 1px solid black;
+  font-size: 16px;
 }
+
 .tab-navigation > button:focus,
 .tab-navigation > button.focused {
   background-color: gray;
