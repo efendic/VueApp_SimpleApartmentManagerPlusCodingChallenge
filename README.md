@@ -1,4 +1,4 @@
-# Simple Apartment Manager, Coding Challenge
+# Simple Apartment Manager with Coding Challenge
 
 ## Project setup
 ```
