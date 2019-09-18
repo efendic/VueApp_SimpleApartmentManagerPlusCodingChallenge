@@ -1,0 +1,8 @@
+// instalirati NodeJS i NPM
+npm install -g @vue/cli
+vue create efa
+npm install
+npm run serve
+
+
+// v-on:keyup="handlerFunction"
