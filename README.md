@@ -1,4 +1,4 @@
-# efa
+# Simple Apartment Manager, Coding Challenge
 
 ## Project setup
 ```
