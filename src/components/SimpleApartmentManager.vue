@@ -1,6 +1,8 @@
 <template>
   <div class="root">
-    <form v-if="currentApartment">
+
+    <div class="wrapper">
+    <div id="div1" class="div1" v-if="currentApartment" style="float: left;">
       <table>
         <thead>
           <tr>
@@ -16,21 +18,38 @@
         <tbody>
           <tr>
             <td> <input type="text" name="title" v-model="currentApartment.title" /> </td>
-            <td> <input type="text" name="state" v-model="currentApartment.state" /> </td>
-            <td> <input type="text" name="area" v-model="currentApartment.area" /> </td>
-            <td> <input type="text" name="rooms" v-model="currentApartment.rooms" /> </td>
-            <td> <input type="text" name="lift" v-model="currentApartment.lift" /> </td>
-            <td> <!-- <input type="text" name="adress" v-model="currentApartment.adress" /> --> </td> <!-- fix this -->
-            <td> <input type="text" name="rentalgross" v-model="currentApartment.rentalgross" /> </td>
+            <td>
+              <select v-model="currentApartment.state">
+                <option value="active">active</option>
+                <option value="assigned">assigned</option>
+                <option value="assigned">inactive</option>
+                <option value="assigned">reserved</option>
+                <option value="vacant">vacant</option>
+              </select>
+            </td>
+            <td> <input type="number" name="area" v-model="currentApartment.area" /> </td>
+            <td> <input type="number" name="rooms" v-model="currentApartment.rooms" /> </td>
+            <td>
+              <select v-model="currentApartment.lift">
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+            </td>
+            <td> <input type="text" name="adress" v-model="currentApartment.building.adress" /> </td>
+            <td> <input type="number" name="rentalgross" v-model="currentApartment.rentalgross" /> </td>
             
             <td> <button class="saveButton" type="button" @click.prevent.stop="saveApartment">Save</button> </td>
           </tr>
         </tbody>
       </table>
-      
+    </div>
 
-    </form>
-    <button class="newApartment" @click.prevent.stop="newApartment()">New</button>
+    <div id="div2" class="div2">
+      <button class="newApartment" @click.prevent.stop="newApartment()">New</button>
+    </div>
+
+    </div>
+
     <table>
       <thead>
         <tr>
@@ -50,7 +69,7 @@
           <td> <span>{{ item.area }}</span> </td>
           <td> <span>{{ item.rooms }}</span> </td>
           <td> <span>{{ item.lift }}</span> </td>
-          <td> <span> Kanzleistrasse 126 </span> </td> <!-- fix this -->
+          <td> <span>{{ item.building ? item.building.adress : '' }}</span> </td>          
           <td> <span>{{ item.rentalgross }}</span> </td>
           <td> 
             <button @click.prevent.stop="editApartment(index)">Edit</button>
@@ -71,12 +90,18 @@ var model = {
   data() {
     return {
       apartments: [],
-      currentApartment: null
+      currentApartment: null,
+      config: {
+        first_column: "title",
+        second_column: "state",
+        third_column: "area"
+      }
     };
   },
   methods: {
     newApartment: function() {
-      this.currentApartment = { index: this.apartments.length };
+      this.currentApartment = { index : this.apartments.length };
+      this.currentApartment.building = { adress : ""};
     },
     editApartment: function(index) {
       this.currentApartment = Object.assign({}, this.apartments[index], { index: index });
@@ -85,8 +110,18 @@ var model = {
       this.apartments.splice(index, 1);
     },
     saveApartment: function() {
-      Vue.set(this.apartments, this.currentApartment.index, this.currentApartment);
-      this.currentApartment = null;
+      var isUnique = true;
+      this.apartments.forEach(element => {
+        if (element.title == this.currentApartment.title) {
+          isUnique = false;
+        }
+      });
+      if (isUnique) {
+        Vue.set(this.apartments, this.currentApartment.index, this.currentApartment);
+        this.currentApartment = null;
+      } else {
+        alert('Apartment with the same title already exists!');
+      }
     }
   },
   mounted() {
@@ -102,6 +137,12 @@ export default model;
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.div1 {
+  margin: 0px auto;
+  margin-top: 10px;
+  clear:both;
+}
 
 h3 {
   margin: 40px 0 0;
@@ -119,7 +160,7 @@ th, td {
   border-bottom: 1px solid #ddd;
 }
 
-input {
+input, select {
   height: 48px;
   font-size: 16px;
   border: 1px solid #4CAF50;
