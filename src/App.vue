@@ -4,7 +4,7 @@
     <div class="tabs">
       <div class="tab-navigation">
         <button @click="changeTab(0)" :class="{ focused: selectedTab === 0 }">Simple Apartment Manager</button>
-        <button @click="changeTab(1)" :class="{ focused: selectedTab === 1 }" style="margin-left: 15px;">Coding Challenge</button>
+        <button @click="changeTab(1)" :class="{ focused: selectedTab === 1 }" style="margin-left: 5px;">Coding Challenge</button>
       </div>
       <br>
       <br>
@@ -19,6 +19,7 @@
           id="cct"
           cols="30"
           rows="10"
+          placeholder="Type text here..."
           v-model="characters"
         ></textarea>
         <br>
@@ -88,10 +89,16 @@ export default {
   float: left;
 }
 
+textarea{
+  width:600px;
+  height: 300px;
+  font-size: 16px;
+}
+
 .tab-navigation > button {
-  background-color: #e7e7e7;
+  background-color: lightgrey;
   border: none;
-  color: silver;
+  color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -101,7 +108,7 @@ export default {
 
 .tab-navigation > button:focus,
 .tab-navigation > button.focused {
-  background-color: gray;
+  background-color: #31B0D5;
   color: white;
 }
 </style>

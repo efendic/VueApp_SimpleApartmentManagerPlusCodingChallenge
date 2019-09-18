@@ -1,14 +1,34 @@
 <template>
   <div class="root">
     <form v-if="currentApartment">
-      <input type="text" name="title" v-model="currentApartment.title" />
-      <input type="text" name="state" v-model="currentApartment.state" />
-      <input type="text" name="area" v-model="currentApartment.area" />
-      <input type="text" name="rooms" v-model="currentApartment.rooms" />
-      <input type="text" name="lift" v-model="currentApartment.lift" />
-      <input type="text" name="rentalgross" v-model="currentApartment.rentalgross" />
+      <table>
+        <thead>
+          <tr>
+          <th> Title </th>
+          <th> <span>State</span> </th>
+          <th> <span>Area</span> </th>
+          <th> <span>Rooms</span> </th>
+          <th> <span>Lift</span> </th>
+          <th> <span>Adress</span> </th>
+          <th> <span>Rentalgross</span> </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <input type="text" name="title" v-model="currentApartment.title" /> </td>
+            <td> <input type="text" name="state" v-model="currentApartment.state" /> </td>
+            <td> <input type="text" name="area" v-model="currentApartment.area" /> </td>
+            <td> <input type="text" name="rooms" v-model="currentApartment.rooms" /> </td>
+            <td> <input type="text" name="lift" v-model="currentApartment.lift" /> </td>
+            <td> <!-- <input type="text" name="adress" v-model="currentApartment.adress" /> --> </td> <!-- fix this -->
+            <td> <input type="text" name="rentalgross" v-model="currentApartment.rentalgross" /> </td>
+            
+            <td> <button class="saveButton" type="button" @click.prevent.stop="saveApartment">Save</button> </td>
+          </tr>
+        </tbody>
+      </table>
+      
 
-      <button class="saveButton" type="button" @click.prevent.stop="saveApartment">Save</button>
     </form>
     <button class="newApartment" @click.prevent.stop="newApartment()">New</button>
     <table>
@@ -30,7 +50,7 @@
           <td> <span>{{ item.area }}</span> </td>
           <td> <span>{{ item.rooms }}</span> </td>
           <td> <span>{{ item.lift }}</span> </td>
-          <td> <span> Kanzleistrasse 126 </span> </td>
+          <td> <span> Kanzleistrasse 126 </span> </td> <!-- fix this -->
           <td> <span>{{ item.rentalgross }}</span> </td>
           <td> 
             <button @click.prevent.stop="editApartment(index)">Edit</button>
@@ -97,6 +117,12 @@ th, td {
   padding: 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+}
+
+input {
+  height: 48px;
+  font-size: 16px;
+  border: 1px solid #4CAF50;
 }
 
 button {
