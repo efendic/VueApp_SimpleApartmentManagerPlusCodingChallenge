@@ -38,13 +38,16 @@
             <td> <input type="text" name="adress" v-model="currentApartment.building.adress" /> </td>
             <td> <input type="number" name="rentalgross" v-model="currentApartment.rentalgross" /> </td>
             
-            <td> <button class="saveButton" type="button" @click.prevent.stop="saveApartment">Save</button> </td>
+            <td> 
+              <button class="saveButton" type="button" @click.prevent.stop="saveApartment">Save</button>
+              <button class="closeButton" type="button" @click.prevent.stop="closeForm">Close</button> 
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div id="div2" class="div2">
+    <div id="div2" class="div2" v-if="!currentApartment" >
       <button class="newApartment" @click.prevent.stop="newApartment()">New</button>
     </div>
 
@@ -53,24 +56,80 @@
     <table>
       <thead>
         <tr>
-          <th> Title </th>
-          <th> <span>State</span> </th>
-          <th> <span>Area</span> </th>
-          <th> <span>Rooms</span> </th>
-          <th> <span>Lift</span> </th>
-          <th> <span>Adress</span> </th>
-          <th> <span>Rentalgross</span> </th>
+          <th>
+            <select class="columnName" v-model="config.first_column">
+              <option value="title">Title</option>
+              <option value="state">State</option>
+              <option value="area">Area</option>
+              <option value="rooms">Rooms</option>
+              <option value="lift">Lift</option>
+              <option value="rentalgross">Rentalgross</option>
+            </select>
+          </th>
+          <th> 
+            <select class="columnName" v-model="config.second_column">
+              <option value="title">Title</option>
+              <option value="state">State</option>
+              <option value="area">Area</option>
+              <option value="rooms">Rooms</option>
+              <option value="lift">Lift</option>
+              <option value="rentalgross">Rentalgross</option>
+            </select>
+          </th>
+          <th> 
+            <select class="columnName" v-model="config.third_column">
+              <option value="title">Title</option>
+              <option value="state">State</option>
+              <option value="area">Area</option>
+              <option value="rooms">Rooms</option>
+              <option value="lift">Lift</option>
+              <option value="rentalgross">Rentalgross</option>
+            </select>
+          </th>
+          <th>
+            <select class="columnName" v-model="config.fourth_column">
+              <option value="title">Title</option>
+              <option value="state">State</option>
+              <option value="area">Area</option>
+              <option value="rooms">Rooms</option>
+              <option value="lift">Lift</option>
+              <option value="rentalgross">Rentalgross</option>
+            </select> 
+          </th>
+          <th>
+            <select class="columnName" v-model="config.fifth_column">
+              <option value="title">Title</option>
+              <option value="state">State</option>
+              <option value="area">Area</option>
+              <option value="rooms">Rooms</option>
+              <option value="lift">Lift</option>
+              <option value="rentalgross">Rentalgross</option>
+            </select> 
+          </th>
+          <th>
+            <span>Adress</span> 
+          </th>
+          <th>
+            <select class="columnName" v-model="config.seventh_column">
+              <option value="title">Title</option>
+              <option value="state">State</option>
+              <option value="area">Area</option>
+              <option value="rooms">Rooms</option>
+              <option value="lift">Lift</option>
+              <option value="rentalgross">Rentalgross</option>
+            </select>
+          </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item,index) in apartments" v-bind:key="index">
-          <td> <strong>{{ item.title }}</strong> </td>
-          <td> <span>{{ item.state }}</span> </td>
-          <td> <span>{{ item.area }}</span> </td>
-          <td> <span>{{ item.rooms }}</span> </td>
-          <td> <span>{{ item.lift }}</span> </td>
-          <td> <span>{{ item.building ? item.building.adress : '' }}</span> </td>          
-          <td> <span>{{ item.rentalgross }}</span> </td>
+          <td> <strong>{{ item[config.first_column] }}</strong> </td>
+          <td> <span>{{ item[config.second_column] }}</span> </td>
+          <td> <span>{{ item[config.third_column] }}</span> </td>
+          <td> <span>{{ item[config.fourth_column] }}</span> </td>
+          <td> <span>{{ item[config.fifth_column] }}</span> </td>
+          <td> <span>{{ item.building ? item.building.adress : '' }}</span> </td>   
+          <td> <span>{{ item[config.seventh_column] }}</span> </td>
           <td> 
             <button @click.prevent.stop="editApartment(index)">Edit</button>
             <button class="deleteButton" @click.prevent.stop="deleteApartment(index)">Delete</button> 
@@ -94,7 +153,11 @@ var model = {
       config: {
         first_column: "title",
         second_column: "state",
-        third_column: "area"
+        third_column: "area",
+        fourth_column: "rooms",
+        fifth_column: "lift",
+        sixth_column: "adress",
+        seventh_column: "rentalgross",
       }
     };
   },
@@ -122,6 +185,9 @@ var model = {
       } else {
         alert('Apartment with the same title already exists!');
       }
+    },
+    closeForm: function() {
+      this.currentApartment = null;
     }
   },
   mounted() {
@@ -166,11 +232,17 @@ input, select {
   border: 1px solid #4CAF50;
 }
 
+.columnName {
+  border: none;
+  font-weight: bold;
+  color: rgb(44, 62, 80);
+}
+
 button {
   background-color: #008CBA;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 12px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -185,7 +257,7 @@ button {
   float: left;
 }
 
-.deleteButton {
+.deleteButton, .closeButton {
   background-color: #f44336;
   margin-left: 5px;
 }
