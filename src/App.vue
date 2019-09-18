@@ -23,7 +23,7 @@
           v-model="characters"
         ></textarea>
         <br>
-        <label v-if="maxKey"> Most occuring character: '{{maxKey}}'. Occuring {{expCounts}} times. </label>
+        <label v-if="maxKey"> Most occuring character: <strong>{{maxKey}}</strong>. Occuring <strong>{{expCounts}}</strong> times. </label>
       </div>
     </div>
   </div>
